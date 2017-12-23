@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -24,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Clase Tipo. Representa un tipo de Activo Fijo.
  *
  * @author andrea
  */
@@ -55,19 +51,35 @@ public class Tipo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoIdtipo")
     private Collection<ActivoFijo> activoFijoCollection;
 
+    /**
+     * Constructor de la clase vacio.
+     */
     public Tipo() {
     }
 
+    /**
+     * Constructor de la clase. Recibe un identificador del tipo.
+     *
+     * @param idtipo Entero.
+     */
     public Tipo(Integer idtipo) {
         this.idtipo = idtipo;
     }
 
+    /**
+     * Constructor de la clase. Recibe todos los atributos de la clase.
+     *
+     * @param idtipo Entero.
+     * @param nombre Cadena de texto.
+     * @param activo Boolean.
+     */
     public Tipo(Integer idtipo, String nombre, short activo) {
         this.idtipo = idtipo;
         this.nombre = nombre;
         this.activo = activo;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
     public Integer getIdtipo() {
         return idtipo;
     }
@@ -115,15 +127,12 @@ public class Tipo implements Serializable {
             return false;
         }
         Tipo other = (Tipo) object;
-        if ((this.idtipo == null && other.idtipo != null) || (this.idtipo != null && !this.idtipo.equals(other.idtipo))) {
-            return false;
-        }
-        return true;
+        return !((this.idtipo == null && other.idtipo != null) || (this.idtipo != null && !this.idtipo.equals(other.idtipo)));
     }
 
     @Override
     public String toString() {
         return "entities.Tipo[ idtipo=" + idtipo + " ]";
     }
-    
+
 }
