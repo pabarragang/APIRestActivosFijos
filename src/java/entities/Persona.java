@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -23,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Clase Persona. Representa una persona.
  *
  * @author andrea
  */
@@ -58,56 +54,113 @@ public class Persona implements Serializable {
     @OneToMany(mappedBy = "personaIdpersona")
     private Collection<ActivoFijo> activoFijoCollection;
 
+    /**
+     * Constructor de la clase.
+     */
     public Persona() {
     }
 
+    /**
+     * Constructor de la clase. Recibe un identificador de la persona.
+     *
+     * @param idpersona Entero.
+     */
     public Persona(Integer idpersona) {
         this.idpersona = idpersona;
     }
 
+    /**
+     * Constructor de la clase. Recibe todos los atributos de una persona.
+     *
+     * @param idpersona Entero.
+     * @param nombre Cadena de Texto.
+     * @param identificacion Cadena de Texto.
+     */
     public Persona(Integer idpersona, String nombre, String identificacion) {
         this.idpersona = idpersona;
         this.nombre = nombre;
         this.identificacion = identificacion;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
+
+    /**
+     *
+     * @return
+     */
     public Integer getIdpersona() {
         return idpersona;
     }
 
+    /**
+     *
+     * @param idpersona
+     */
     public void setIdpersona(Integer idpersona) {
         this.idpersona = idpersona;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIdentificacion() {
         return identificacion;
     }
 
+    /**
+     *
+     * @param identificacion
+     */
     public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Short getActivo() {
         return activo;
     }
 
+    /**
+     *
+     * @param activo
+     */
     public void setActivo(Short activo) {
         this.activo = activo;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<ActivoFijo> getActivoFijoCollection() {
         return activoFijoCollection;
     }
 
+    /**
+     *
+     * @param activoFijoCollection
+     */
     public void setActivoFijoCollection(Collection<ActivoFijo> activoFijoCollection) {
         this.activoFijoCollection = activoFijoCollection;
     }
@@ -126,15 +179,14 @@ public class Persona implements Serializable {
             return false;
         }
         Persona other = (Persona) object;
-        if ((this.idpersona == null && other.idpersona != null) || (this.idpersona != null && !this.idpersona.equals(other.idpersona))) {
-            return false;
-        }
-        return true;
+        return !((this.idpersona == null && other.idpersona != null) 
+                || (this.idpersona != null 
+                && !this.idpersona.equals(other.idpersona)));
     }
 
     @Override
     public String toString() {
         return "entities.Persona[ idpersona=" + idpersona + " ]";
     }
-    
+
 }
