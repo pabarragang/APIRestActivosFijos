@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -25,7 +20,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Clase Activo Fijo. 
+ * Representa un activo fijo.
  * @author andrea
  */
 @Entity
@@ -122,14 +118,42 @@ public class ActivoFijo implements Serializable {
     @ManyToOne(optional = false)
     private Tipo tipoIdtipo;
 
+    /**
+     * Constructor de la clase vacio.
+     */
     public ActivoFijo() {
     }
 
+    /**
+     * Constructor de la clase. Recibe un identificador del activo fijo.
+     *
+     * @param idactivoFijo Entero.
+     */
     public ActivoFijo(Integer idactivoFijo) {
         this.idactivoFijo = idactivoFijo;
     }
 
-    public ActivoFijo(Integer idactivoFijo, String nombre, String descripcion, String serial, String numInventario, float peso, float alto, float ancho, float largo, float valorCompra, Date fechaCompra, Date fechaBaja, String color) {
+    /**
+     * Constructor de la clase. Recibe todos los atributos del activo fijo.
+     *
+     * @param idactivoFijo Entero.
+     * @param nombre Cadena de Texto.
+     * @param descripcion Cadena de Texto.
+     * @param serial Cadena de Texto.
+     * @param numInventario Cadena de Texto.
+     * @param peso Decimal.
+     * @param alto Decimal.
+     * @param ancho Decimal.
+     * @param largo Decimal.
+     * @param valorCompra Decimal.
+     * @param fechaCompra Fecha.
+     * @param fechaBaja Fecha.
+     * @param color Cadena de Texto.
+     */
+    public ActivoFijo(Integer idactivoFijo, String nombre, String descripcion, 
+            String serial, String numInventario, float peso, float alto, 
+            float ancho, float largo, float valorCompra, Date fechaCompra, 
+            Date fechaBaja, String color) {
         this.idactivoFijo = idactivoFijo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -145,6 +169,7 @@ public class ActivoFijo implements Serializable {
         this.color = color;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
     public Integer getIdactivoFijo() {
         return idactivoFijo;
     }
@@ -295,15 +320,14 @@ public class ActivoFijo implements Serializable {
             return false;
         }
         ActivoFijo other = (ActivoFijo) object;
-        if ((this.idactivoFijo == null && other.idactivoFijo != null) || (this.idactivoFijo != null && !this.idactivoFijo.equals(other.idactivoFijo))) {
-            return false;
-        }
-        return true;
+        return !((this.idactivoFijo == null && other.idactivoFijo != null) 
+                || (this.idactivoFijo != null 
+                && !this.idactivoFijo.equals(other.idactivoFijo)));
     }
 
     @Override
     public String toString() {
-        return "entities.ActivoFijo[ idactivoFijo=" + idactivoFijo + " ]";
+        return java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("entities/ActivoFijo").getString("ENTITIES.ACTIVOFIJO[ IDACTIVOFIJO={0} ]"), new Object[] {idactivoFijo});
     }
-    
+
 }
