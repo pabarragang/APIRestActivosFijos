@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -25,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Clase Area. Representa una area de un activo fijo.
  *
  * @author andrea
  */
@@ -59,19 +55,35 @@ public class Area implements Serializable {
     @OneToMany(mappedBy = "areaIdarea")
     private Collection<ActivoFijo> activoFijoCollection;
 
+    /**
+     * Constructor de la clase vacio.
+     */
     public Area() {
     }
 
+    /**
+     * Constructor de la clase. Recibe un identificador del area.
+     *
+     * @param idarea Entero.
+     */
     public Area(Integer idarea) {
         this.idarea = idarea;
     }
 
+    /**
+     * Constructor de la clase. Recibe todos los atributos de un Area.
+     *
+     * @param idarea Entero.
+     * @param nombre Cadena de Texto.
+     * @param activo Boolean.
+     */
     public Area(Integer idarea, String nombre, short activo) {
         this.idarea = idarea;
         this.nombre = nombre;
         this.activo = activo;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
     public Integer getIdarea() {
         return idarea;
     }
@@ -127,15 +139,13 @@ public class Area implements Serializable {
             return false;
         }
         Area other = (Area) object;
-        if ((this.idarea == null && other.idarea != null) || (this.idarea != null && !this.idarea.equals(other.idarea))) {
-            return false;
-        }
-        return true;
+        return !((this.idarea == null && other.idarea != null) 
+                || (this.idarea != null && !this.idarea.equals(other.idarea)));
     }
 
     @Override
     public String toString() {
         return "entities.Area[ idarea=" + idarea + " ]";
     }
-    
+
 }

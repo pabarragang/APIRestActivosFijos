@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -24,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Clase Ciudad. Representa una ciudad.
  *
  * @author andrea
  */
@@ -55,48 +51,97 @@ public class Ciudad implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadIdciudad")
     private Collection<Area> areaCollection;
 
+    /**
+     * Constructor de la clase.
+     */
     public Ciudad() {
     }
 
+    /**
+     * Constructor de la clase. Recibe un identificador de la ciudad.
+     *
+     * @param idciudad Entero
+     */
     public Ciudad(Integer idciudad) {
         this.idciudad = idciudad;
     }
 
+    /**
+     * Constructor de la clase. Recibe todos los atributos de una ciudad.
+     *
+     * @param idciudad Entero.
+     * @param nombre Cadena de Texto.
+     * @param activo Boolean.
+     */
     public Ciudad(Integer idciudad, String nombre, short activo) {
         this.idciudad = idciudad;
         this.nombre = nombre;
         this.activo = activo;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
+
+    /**
+     *
+     * @return
+     */
     public Integer getIdciudad() {
         return idciudad;
     }
 
+    /**
+     *
+     * @param idciudad
+     */
     public void setIdciudad(Integer idciudad) {
         this.idciudad = idciudad;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getActivo() {
         return activo;
     }
 
+    /**
+     *
+     * @param activo
+     */
     public void setActivo(short activo) {
         this.activo = activo;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Area> getAreaCollection() {
         return areaCollection;
     }
 
+    /**
+     *
+     * @param areaCollection
+     */
     public void setAreaCollection(Collection<Area> areaCollection) {
         this.areaCollection = areaCollection;
     }
@@ -115,15 +160,14 @@ public class Ciudad implements Serializable {
             return false;
         }
         Ciudad other = (Ciudad) object;
-        if ((this.idciudad == null && other.idciudad != null) || (this.idciudad != null && !this.idciudad.equals(other.idciudad))) {
-            return false;
-        }
-        return true;
+        return !((this.idciudad == null && other.idciudad != null) 
+                || (this.idciudad != null 
+                && !this.idciudad.equals(other.idciudad)));
     }
 
     @Override
     public String toString() {
         return "entities.Ciudad[ idciudad=" + idciudad + " ]";
     }
-    
+
 }

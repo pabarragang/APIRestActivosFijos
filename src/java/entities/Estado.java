@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -24,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Clase Estado. Representa los estados de un activo fijo.
  *
  * @author andrea
  */
@@ -55,48 +51,97 @@ public class Estado implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadoIdestado")
     private Collection<ActivoFijo> activoFijoCollection;
 
+    /**
+     * Constructor de la clase.
+     */
     public Estado() {
     }
 
+    /**
+     * Constructor de la clase.
+     *
+     * @param idestado Entero.
+     */
     public Estado(Integer idestado) {
         this.idestado = idestado;
     }
 
+    /**
+     * Constructor de la clase.
+     *
+     * @param idestado Entero.
+     * @param nombre Cadena de Texto.
+     * @param activo Boolean.
+     */
     public Estado(Integer idestado, String nombre, short activo) {
         this.idestado = idestado;
         this.nombre = nombre;
         this.activo = activo;
     }
 
+    // Getters, Setters y demas metodos utiles de la clase.
+
+    /**
+     *
+     * @return
+     */
     public Integer getIdestado() {
         return idestado;
     }
 
+    /**
+     *
+     * @param idestado
+     */
     public void setIdestado(Integer idestado) {
         this.idestado = idestado;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getActivo() {
         return activo;
     }
 
+    /**
+     *
+     * @param activo
+     */
     public void setActivo(short activo) {
         this.activo = activo;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<ActivoFijo> getActivoFijoCollection() {
         return activoFijoCollection;
     }
 
+    /**
+     *
+     * @param activoFijoCollection
+     */
     public void setActivoFijoCollection(Collection<ActivoFijo> activoFijoCollection) {
         this.activoFijoCollection = activoFijoCollection;
     }
@@ -115,15 +160,14 @@ public class Estado implements Serializable {
             return false;
         }
         Estado other = (Estado) object;
-        if ((this.idestado == null && other.idestado != null) || (this.idestado != null && !this.idestado.equals(other.idestado))) {
-            return false;
-        }
-        return true;
+        return !((this.idestado == null && other.idestado != null) 
+                || (this.idestado != null 
+                && !this.idestado.equals(other.idestado)));
     }
 
     @Override
     public String toString() {
         return "entities.Estado[ idestado=" + idestado + " ]";
     }
-    
+
 }
