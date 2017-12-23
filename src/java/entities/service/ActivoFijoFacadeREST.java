@@ -5,8 +5,16 @@
  */
 package entities.service;
 
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
 import entities.ActivoFijo;
+import entities.Tipo;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +27,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import sun.rmi.runtime.Log;
 
 /**
  *
@@ -39,14 +48,27 @@ public class ActivoFijoFacadeREST extends AbstractFacade<ActivoFijo> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(ActivoFijo entity) {
-        super.create(entity);
+       
+        if (entity.getFechaBaja().after(entity.getFechaCompra())) {
+            Log.getLog("Datos válidos", "La fecha de baja debe ser mayor a la de compra", 0);
+            super.create(entity);
+        }else{
+            Log.getLog("Datos inválidos", "La fecha de baja debe ser mayor a la de compra", 0);
+        }
+        
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, ActivoFijo entity) {
-        super.edit(entity);
+        if (entity.getFechaBaja().before(entity.getFechaCompra())) {
+            Log.getLog("Datos válidos", "La fecha de baja debe ser mayor a la de compra", 0);
+            super.edit(entity);
+        }else{
+            Log.getLog("Datos inválidos", "La fecha de baja debe ser mayor a la de compra", 0);
+        }
+        
     }
 
     @DELETE
@@ -68,12 +90,35 @@ public class ActivoFijoFacadeREST extends AbstractFacade<ActivoFijo> {
     public List<ActivoFijo> findAll() {
         return super.findAll();
     }
-
+    
     @GET
-    @Path("{from}/{to}")
+    @Path("{field}/{value}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ActivoFijo> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<ActivoFijo> fndByField(@PathParam("field") String field, @PathParam("value") String value) {
+        javax.persistence.Query query = null;
+        if (field.equals("tipo")) {
+            query = getEntityManager().createNamedQuery("ActivoFijo.findByTipo");
+            query.setParameter(field, new Tipo(Integer.parseInt(value)));
+        }else{
+            if (field.equals("fechaCompra")) {
+                DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = null;
+                try {
+                    date = dateformat.parse(value);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ActivoFijoFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                query = getEntityManager().createNamedQuery("ActivoFijo.findByFechaCompra");
+                query.setParameter(field, date);
+            }else{
+                if (field.equals("serial")) {
+                    query = getEntityManager().createNamedQuery("ActivoFijo.findBySerial");
+                    query.setParameter(field, value);
+                }
+            }
+            
+        }        
+        return query.getResultList();
     }
 
     @GET

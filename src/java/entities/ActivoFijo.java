@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ActivoFijo.findByNumInventario", query = "SELECT a FROM ActivoFijo a WHERE a.numInventario = :numInventario")
     , @NamedQuery(name = "ActivoFijo.findByPeso", query = "SELECT a FROM ActivoFijo a WHERE a.peso = :peso")
     , @NamedQuery(name = "ActivoFijo.findByAlto", query = "SELECT a FROM ActivoFijo a WHERE a.alto = :alto")
+    , @NamedQuery(name = "ActivoFijo.findByTipo", query = "SELECT a FROM ActivoFijo a WHERE a.tipoIdtipo = :tipo")
     , @NamedQuery(name = "ActivoFijo.findByAncho", query = "SELECT a FROM ActivoFijo a WHERE a.ancho = :ancho")
     , @NamedQuery(name = "ActivoFijo.findByLargo", query = "SELECT a FROM ActivoFijo a WHERE a.largo = :largo")
     , @NamedQuery(name = "ActivoFijo.findByValorCompra", query = "SELECT a FROM ActivoFijo a WHERE a.valorCompra = :valorCompra")

@@ -5,6 +5,7 @@
  */
 package entities.service;
 
+import entities.ActivoFijo;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -59,6 +60,10 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public List<ActivoFijo> findByField(String query, String field, Integer idfield) {
+        return getEntityManager().createQuery(query).getResultList();
     }
     
 }
