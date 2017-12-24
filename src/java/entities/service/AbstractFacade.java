@@ -8,6 +8,7 @@ package entities.service;
 import entities.ActivoFijo;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -23,16 +24,25 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
-        getEntityManager().persist(entity);
+    public Response create(T entity) {
+        try{
+            getEntityManager().persist(entity);
+            return Response.status(Response.Status.ACCEPTED).entity("Entidad creada con éxito").build();
+        }catch(Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un problema con la creacion de la entidad").build();  
+        }
+        
     }
 
-    public void edit(T entity) {
-        getEntityManager().merge(entity);
-    }
-
-    public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+    public Response edit(T entity) {
+        try{
+            getEntityManager().merge(entity);
+            return Response.status(Response.Status.ACCEPTED).entity("Entidad creada con éxito").build();
+            
+        }catch(Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Ha ocurrido un problema con la creacion de la entidad").build();  
+        }
+        
     }
 
     public T find(Object id) {

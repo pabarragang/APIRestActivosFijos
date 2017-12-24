@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -38,8 +39,8 @@ public class AreaFacadeREST extends AbstractFacade<Area> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Area entity) {
-        super.create(entity);
+    public Response create(Area entity) {
+        return super.create(entity);
     }
 
     @PUT
@@ -47,12 +48,6 @@ public class AreaFacadeREST extends AbstractFacade<Area> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Area entity) {
         super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
     }
 
     @GET
